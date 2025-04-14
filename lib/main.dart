@@ -1,26 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:myhomepage/home.dart';
+import 'package:myhomepage/news.dart';
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:html' as html;
+
 
 /// 汎用的なレスポンシブレイアウトウィジェット
-class ResponsiveLayout<T extends Widget> extends StatelessWidget {
+class ResponsiveLayout<T extends Widget, Bool> extends StatelessWidget {
   final T Function() pcLayout;
+  final T Function() pcMinLayout;
   final T Function() smartphoneLayout;
+  final bool deviceType;
 
   const ResponsiveLayout({
     super.key,
     required this.pcLayout,
+    required this.pcMinLayout,
     required this.smartphoneLayout,
+    required this.deviceType,
   });
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        if (constraints.maxWidth < 600) {
+        if (deviceType == true){
           return smartphoneLayout();
-        } else {
-          return pcLayout();
+        }else {
+          if (constraints.maxWidth < 1000) {
+          return pcMinLayout();
+          } else {
+            return pcLayout();
+          }
         }
       },
     );
@@ -28,69 +41,31 @@ class ResponsiveLayout<T extends Widget> extends StatelessWidget {
 }
 
 
-class PcHomeLayout extends StatelessWidget {
-  const PcHomeLayout({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text("PC Home")),
-    );
-  }
-}
-
-class SmartphoneHomeLayout extends StatelessWidget {
-  const SmartphoneHomeLayout({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text("Smartphone Home")),
-    );
-  }
-}
-
-class PcNewsLayout extends StatelessWidget {
-  const PcNewsLayout({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text("PC News")),
-    );
-  }
-}
-
-class SmartphoneNewsLayout extends StatelessWidget {
-  const SmartphoneNewsLayout({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text("Smartphone News")),
-    );
-  }
-}
-
-
 void main() {
-  setUrlStrategy(PathUrlStrategy());
+  setUrlStrategy(PathUrlStrategy()); //パスの/#/をなくす
+
+  //スマホか確認
+  bool isMobile = html.window.navigator.userAgent.toLowerCase().contains('iphone') || (html.window.navigator.userAgent.toLowerCase().contains('android') && html.window.navigator.userAgent.toLowerCase().contains('mobile'));
 
   final router = GoRouter(
     initialLocation: '/home',
     routes: [
       GoRoute(
         path: '/home',
-        builder: (context, state) => const ResponsiveLayout(
+        builder: (context, state) => ResponsiveLayout(
           pcLayout: PcHomeLayout.new,
-          smartphoneLayout: SmartphoneHomeLayout.new,
+          pcMinLayout: PcMinHomeLayout.new,
+          smartphoneLayout: SmartphoneNewsLayout.new,
+          deviceType: isMobile,
         ),
       ),
       GoRoute(
         path: '/news',
-        builder: (context, state) => const ResponsiveLayout(
+        builder: (context, state) => ResponsiveLayout(
           pcLayout: PcNewsLayout.new,
+          pcMinLayout: PcMinNewsLayout.new,
           smartphoneLayout: SmartphoneNewsLayout.new,
+          deviceType: isMobile,
         ),
       ),
     ],
@@ -100,5 +75,14 @@ void main() {
     routeInformationParser: router.routeInformationParser,
     routerDelegate: router.routerDelegate,
     routeInformationProvider: router.routeInformationProvider,
+    theme: ThemeData(
+          brightness: Brightness.dark,
+          primaryColor: Colors.lightBlue[800],
+          fontFamily: 'Georgia',
+          textTheme: const TextTheme(
+            displayLarge: TextStyle(fontSize: 32, fontStyle: FontStyle.italic),
+            bodyMedium: TextStyle(fontSize: 14, fontFamily: 'Hind'),
+          ),
+        ),
   ));
 }
