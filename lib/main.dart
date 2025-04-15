@@ -5,6 +5,7 @@ import 'package:myhomepage/home.dart';
 import 'package:myhomepage/news.dart';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
+import 'package:myhomepage/l10n/l10n.dart';
 
 
 /// 汎用的なレスポンシブレイアウトウィジェット
@@ -75,14 +76,41 @@ void main() {
     routeInformationParser: router.routeInformationParser,
     routerDelegate: router.routerDelegate,
     routeInformationProvider: router.routeInformationProvider,
+    localizationsDelegates: L10n.localizationsDelegates,
+    supportedLocales: L10n.supportedLocales,
+    localeResolutionCallback: (locale, supportedLocales) {
+        if (locale != null) {
+          final _locale = Locale(locale.languageCode);
+          if (supportedLocales.contains(_locale)) {
+            return _locale;
+          }
+        }
+        return supportedLocales.first;
+    },
     theme: ThemeData(
-          brightness: Brightness.dark,
-          primaryColor: Colors.lightBlue[800],
-          fontFamily: 'Georgia',
-          textTheme: const TextTheme(
-            displayLarge: TextStyle(fontSize: 32, fontStyle: FontStyle.italic),
-            bodyMedium: TextStyle(fontSize: 14, fontFamily: 'Hind'),
+      primarySwatch: Colors.indigo, // デフォルトのメインカラー
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.indigo,
+          ).copyWith(
+            secondary: Colors.amber, // アクセントカラー（ボタン・FABなど）
           ),
+      fontFamily: 'Noto_Sans_JP',
+      textTheme: const TextTheme(
+        bodyLarge: TextStyle(
+          fontSize: 18.0,
+          color: Colors.black87,
+          fontWeight: FontWeight.bold,
         ),
+        bodyMedium: TextStyle(
+          fontSize: 16.0,
+          color: Colors.black87,
+          fontWeight: FontWeight.w600,
+        ),
+        bodySmall: TextStyle(
+          fontSize: 14.0,
+          color: Colors.black54,
+        ),
+      ),
+    ),
   ));
 }

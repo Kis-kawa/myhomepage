@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:myhomepage/l10n/l10n.dart';
 
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -22,6 +23,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final l10n = L10n.of(context)!;
+    //l10n.helloWorld
 
     final appbar = Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -82,7 +85,7 @@ class CustomMinAppBar extends StatelessWidget {
         Builder(
           //sacffoldを持ってくる
           builder: (context) => IconButton(
-            icon: Icon(Icons.menu),
+            icon: Icon(Icons.menu, color: Colors.black,),
             onPressed: () {
               Scaffold.of(context).openEndDrawer();
             },
