@@ -3,6 +3,7 @@ import 'package:myhomepage/l10n/l10n.dart';
 import 'package:myhomepage/widgets/custom_app_bar.dart';
 import 'package:myhomepage/widgets/custom_drawer.dart';
 import 'package:myhomepage/widgets/custom_min_app_bar.dart';
+import 'package:myhomepage/widgets/decorated_page_title.dart';
 import 'package:myhomepage/widgets/profile_section.dart';
 import 'package:myhomepage/widgets/side_info_section.dart';
 
@@ -40,63 +41,7 @@ class PcHomeLayout extends StatelessWidget {
           height: 270,
           color: Colors.transparent,
           child: Center(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                // 1. 最背面：ソフトな影
-                Text(
-                  l10n.titleA,
-                  style: TextStyle(
-                    fontSize: 54,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 4.0,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 14
-                      ..color = Colors.black.withValues(alpha: 0.6)
-                      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
-                  ),
-                ),
-                // 2. 外側の枠線（白）
-                Text(
-                  l10n.titleA,
-                  style: TextStyle(
-                    fontSize: 54,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 4.0,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 10
-                      ..strokeJoin = StrokeJoin.round
-                      ..color = Colors.white,
-                  ),
-                ),
-                // 3. 内側の枠線（黒）
-                Text(
-                  l10n.titleA,
-                  style: TextStyle(
-                    fontSize: 54,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 4.0,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 4
-                      ..strokeJoin = StrokeJoin.round
-                      ..color = Colors.black,
-                  ),
-                ),
-                // 4. 最前面：文字本体
-                Text(
-                  l10n.titleA,
-                  style: const TextStyle(
-                    fontSize: 54,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 4.0,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
+            child: DecoratedPageTitle(title: l10n.titleA),
           ),
         ),
         Container(
@@ -184,63 +129,7 @@ class PcMinHomeLayout extends StatelessWidget {
               height: -0.36 * size.width + 630,
               color: Colors.transparent,
               child: Center(
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    // 1. 最背面：ソフトな影
-                    Text(
-                      l10n.titleA,
-                      style: TextStyle(
-                        fontSize: 54,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 4.0,
-                        foreground: Paint()
-                          ..style = PaintingStyle.stroke
-                          ..strokeWidth = 14
-                          ..color = Colors.black.withValues(alpha: 0.6)
-                          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
-                      ),
-                    ),
-                    // 2. 外側の枠線（白）
-                    Text(
-                      l10n.titleA,
-                      style: TextStyle(
-                        fontSize: 54,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 4.0,
-                        foreground: Paint()
-                          ..style = PaintingStyle.stroke
-                          ..strokeWidth = 10
-                          ..strokeJoin = StrokeJoin.round
-                          ..color = Colors.white,
-                      ),
-                    ),
-                    // 3. 内側の枠線（黒）
-                    Text(
-                      l10n.titleA,
-                      style: TextStyle(
-                        fontSize: 54,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 4.0,
-                        foreground: Paint()
-                          ..style = PaintingStyle.stroke
-                          ..strokeWidth = 4
-                          ..strokeJoin = StrokeJoin.round
-                          ..color = Colors.black,
-                      ),
-                    ),
-                    // 4. 最前面：文字本体
-                    Text(
-                      l10n.titleA,
-                      style: const TextStyle(
-                        fontSize: 54,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 4.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
+                child: DecoratedPageTitle(title: l10n.titleA),
               ),
             ),
             Container(
