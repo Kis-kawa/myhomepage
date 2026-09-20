@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:myhomepage/home.dart';
 import 'package:myhomepage/news.dart';
+import 'package:myhomepage/study.dart';
+import 'package:myhomepage/works.dart';
+import 'package:myhomepage/others.dart';
 // ignore: avoid_web_libraries_in_flutter
 import 'package:web/web.dart' as web;
 import 'package:myhomepage/l10n/l10n.dart';
@@ -68,6 +71,33 @@ void main() {
           pcLayout: PcNewsLayout.new,
           pcMinLayout: PcMinNewsLayout.new,
           smartphoneLayout: SmartphoneNewsLayout.new,
+          deviceType: isMobile,
+        ),
+      ),
+      GoRoute(
+        path: '/study',
+        builder: (context, state) => ResponsiveLayout(
+          pcLayout: PcStudyLayout.new,
+          pcMinLayout: PcMinStudyLayout.new,
+          smartphoneLayout: PcMinStudyLayout.new,
+          deviceType: isMobile,
+        ),
+      ),
+      GoRoute(
+        path: '/works',
+        builder: (context, state) => ResponsiveLayout(
+          pcLayout: PcWorksLayout.new,
+          pcMinLayout: PcMinWorksLayout.new,
+          smartphoneLayout: PcMinWorksLayout.new,
+          deviceType: isMobile,
+        ),
+      ),
+      GoRoute(
+        path: '/others',
+        builder: (context, state) => ResponsiveLayout(
+          pcLayout: PcOthersLayout.new,
+          pcMinLayout: PcMinOthersLayout.new,
+          smartphoneLayout: PcMinOthersLayout.new,
           deviceType: isMobile,
         ),
       ),
