@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myhomepage/l10n/l10n.dart';
 import 'package:myhomepage/widgets/custom_app_bar.dart';
 import 'package:myhomepage/widgets/custom_min_app_bar.dart';
 
@@ -12,6 +13,7 @@ class PcHomeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final l10n = L10n.of(context)!;
 
 
     final stack = Stack(children:[
@@ -40,7 +42,7 @@ class PcHomeLayout extends StatelessWidget {
               children: [
                 // 1. 最背面：ソフトな影
                 Text(
-                  "プロフィール",
+                  l10n.titleA,
                   style: TextStyle(
                     fontSize: 54,
                     fontWeight: FontWeight.w900,
@@ -54,7 +56,7 @@ class PcHomeLayout extends StatelessWidget {
                 ),
                 // 2. 外側の枠線（白）
                 Text(
-                  "プロフィール",
+                  l10n.titleA,
                   style: TextStyle(
                     fontSize: 54,
                     fontWeight: FontWeight.w900,
@@ -68,7 +70,7 @@ class PcHomeLayout extends StatelessWidget {
                 ),
                 // 3. 内側の枠線（黒）
                 Text(
-                  "プロフィール",
+                  l10n.titleA,
                   style: TextStyle(
                     fontSize: 54,
                     fontWeight: FontWeight.w900,
@@ -81,9 +83,9 @@ class PcHomeLayout extends StatelessWidget {
                   ),
                 ),
                 // 4. 最前面：文字本体
-                const Text(
-                  "プロフィール",
-                  style: TextStyle(
+                Text(
+                  l10n.titleA,
+                  style: const TextStyle(
                     fontSize: 54,
                     fontWeight: FontWeight.w900,
                     letterSpacing: 4.0,
@@ -94,7 +96,7 @@ class PcHomeLayout extends StatelessWidget {
             ),
           ),
         ),
-        Container(width: size.width, color: Theme.of(context).scaffoldBackgroundColor, child: Row(crossAxisAlignment: CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        Container(width: size.width, color: Theme.of(context).colorScheme.surfaceContainer, child: Row(crossAxisAlignment: CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           SizedBox(width: 1,),
           SizedBox(width: 1),
           SizedBox(width: 1),
@@ -158,6 +160,7 @@ class PcMinHomeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final l10n = L10n.of(context)!;
 
 
     final stack = Stack(children:[
@@ -187,7 +190,7 @@ class PcMinHomeLayout extends StatelessWidget {
                   children: [
                     // 1. 最背面：ソフトな影
                     Text(
-                      "プロフィール",
+                      l10n.titleA,
                       style: TextStyle(
                         fontSize: 54,
                         fontWeight: FontWeight.w900,
@@ -201,7 +204,7 @@ class PcMinHomeLayout extends StatelessWidget {
                     ),
                     // 2. 外側の枠線（白）
                     Text(
-                      "プロフィール",
+                      l10n.titleA,
                       style: TextStyle(
                         fontSize: 54,
                         fontWeight: FontWeight.w900,
@@ -215,7 +218,7 @@ class PcMinHomeLayout extends StatelessWidget {
                     ),
                     // 3. 内側の枠線（黒）
                     Text(
-                      "プロフィール",
+                      l10n.titleA,
                       style: TextStyle(
                         fontSize: 54,
                         fontWeight: FontWeight.w900,
@@ -228,9 +231,9 @@ class PcMinHomeLayout extends StatelessWidget {
                       ),
                     ),
                     // 4. 最前面：文字本体
-                    const Text(
-                      "プロフィール",
-                      style: TextStyle(
+                    Text(
+                      l10n.titleA,
+                      style: const TextStyle(
                         fontSize: 54,
                         fontWeight: FontWeight.w900,
                         letterSpacing: 4.0,
@@ -241,7 +244,7 @@ class PcMinHomeLayout extends StatelessWidget {
                 ),
               ),
             ),
-            Container(width: size.width ,color: Theme.of(context).scaffoldBackgroundColor, child: Column(children: [
+            Container(width: size.width ,color: Theme.of(context).colorScheme.surfaceContainer, child: Column(children: [
               Container(width: size.width*0.9 ,height: 300,color: Colors.red,),
               Container(width: size.width*0.9 ,height: 300,color: Colors.yellow,),
               Container(width: size.width*0.9 ,height: 300,color: Colors.green,),

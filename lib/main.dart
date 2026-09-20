@@ -140,6 +140,7 @@ void main() {
               ).copyWith(
                 secondary: Colors.amber,
                 surface: Colors.white,
+                surfaceContainer: const Color(0xFFE2E8F0),
                 onSurface: Colors.black87,
               ),
               fontFamily: 'Noto_Sans_JP',
@@ -170,6 +171,7 @@ void main() {
               ).copyWith(
                 secondary: Colors.amber,
                 surface: const Color(0xFF1E1E1E),
+                surfaceContainer: const Color(0xFF22272E),
                 onSurface: Colors.white,
               ),
               fontFamily: 'Noto_Sans_JP',
