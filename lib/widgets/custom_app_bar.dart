@@ -34,21 +34,37 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(width: size.width * 0.14),
-        CircleAvatar(
-          radius: 20,
-          backgroundColor: Colors.black,
+        InkWell(
+          onTap: () {
+            final currentPath = GoRouterState.of(context).uri.path;
+            if (currentPath == '/home') return;
+            context.push('/home');
+          },
+          borderRadius: BorderRadius.circular(8),
           child: Padding(
-            padding: const EdgeInsets.all(4),
-            child: SvgPicture.asset(
-              'assets/images/common_icon_01.svg',
-              fit: BoxFit.contain,
+            padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircleAvatar(
+                  radius: 20,
+                  backgroundColor: Colors.black,
+                  child: Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: SvgPicture.asset(
+                      'assets/images/common_icon_01.svg',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                const Text(
+                  "Kishi",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
           ),
-        ),
-        const SizedBox(width: 8),
-        const Text(
-          "Kishi",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         SizedBox(width: size.width * 0.06),
         navItem(context, l10n.titleA, "/home"),
