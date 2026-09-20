@@ -17,7 +17,10 @@ class ProfileSection extends StatelessWidget {
 
     return Container(
       width: width,
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 22),
+      padding: EdgeInsets.symmetric(
+        horizontal: width < 450 ? 16 : 24,
+        vertical: 20,
+      ),
       decoration: BoxDecoration(
         color: theme.scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(12),

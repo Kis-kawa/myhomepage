@@ -243,11 +243,16 @@ class PcMinHomeLayout extends StatelessWidget {
                 ),
               ),
             ),
-            Container(width: size.width ,color: Theme.of(context).colorScheme.surfaceContainer, child: Column(children: [
-              Container(width: size.width*0.9 ,height: 300,color: Colors.red,),
-              Container(width: size.width*0.9 ,height: 300,color: Colors.yellow,),
-              Container(width: size.width*0.9 ,height: 300,color: Colors.green,),
-            ],),),
+            Container(
+              width: size.width,
+              color: Theme.of(context).colorScheme.surfaceContainer,
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              child: Center(
+                child: ProfileSection(
+                  width: (size.width * 0.9).clamp(0.0, 700.0),
+                ),
+              ),
+            ),
           ]),
         ),
       )
