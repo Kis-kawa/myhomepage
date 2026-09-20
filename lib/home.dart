@@ -3,6 +3,7 @@ import 'package:myhomepage/l10n/l10n.dart';
 import 'package:myhomepage/widgets/custom_app_bar.dart';
 import 'package:myhomepage/widgets/custom_drawer.dart';
 import 'package:myhomepage/widgets/custom_min_app_bar.dart';
+import 'package:myhomepage/widgets/profile_section.dart';
 
 
 
@@ -97,29 +98,46 @@ class PcHomeLayout extends StatelessWidget {
             ),
           ),
         ),
-        Container(width: size.width, color: Theme.of(context).colorScheme.surfaceContainer, child: Row(crossAxisAlignment: CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          SizedBox(width: 1,),
-          SizedBox(width: 1),
-          SizedBox(width: 1),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+        Container(
+          width: size.width,
+          color: Theme.of(context).colorScheme.surfaceContainer,
+          padding: const EdgeInsets.symmetric(vertical: 24),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Container(width: size.width*0.5 ,height: 300,color: Colors.red,),
-              Container(width: size.width*0.5 ,height: 300,color: Colors.yellow,),
-              Container(width: size.width*0.5 ,height: 300,color: Colors.green,),
-            ]),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(width: size.width*0.2 ,height: 300, decoration: BoxDecoration(color: Colors.red,borderRadius: BorderRadius.circular(10),),),
-              Container(height: 20, color: Colors.transparent),
-              Container(width: size.width*0.2 ,height: 600, decoration: BoxDecoration(color: Colors.yellow,borderRadius: BorderRadius.circular(10),),),
-            ]),
-          SizedBox(width: 1),
-          SizedBox(width: 1),
-          SizedBox(width: 1),
-          ])
-      )])),
+              const SizedBox(width: 1),
+              const SizedBox(width: 1),
+              const SizedBox(width: 1),
+              ProfileSection(width: size.width * 0.5),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    width: size.width * 0.2,
+                    height: 300,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    width: size.width * 0.2,
+                    height: 600,
+                    decoration: BoxDecoration(
+                      color: Colors.yellow,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 1),
+              const SizedBox(width: 1),
+              const SizedBox(width: 1),
+            ],
+          ),
+        )])),
       )
     ]);
 
