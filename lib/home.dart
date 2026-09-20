@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myhomepage/l10n/l10n.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -31,8 +32,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       children: [
             Container(width: size.width*0.2),
             CircleAvatar(
-              backgroundImage: AssetImage("assets/images/profile.png"),
               radius: 20,
+              backgroundColor: Colors.black,
+              child: Padding(
+                padding: const EdgeInsets.all(4),
+                child: SvgPicture.asset(
+                  'assets/images/common_icon_01.svg',
+                  fit: BoxFit.contain,
+                ),
+              ),
             ),
             const SizedBox(width: 8),
             const Text(
@@ -68,8 +76,15 @@ class CustomMinAppBar extends StatelessWidget {
       Row(mainAxisAlignment: MainAxisAlignment.start, children:[
         const SizedBox(width: 20,),
         CircleAvatar(
-          backgroundImage: AssetImage("assets/images/profile.png"),
           radius: 20,
+          backgroundColor: Colors.black,
+          child: Padding(
+            padding: const EdgeInsets.all(4),
+            child: SvgPicture.asset(
+              'assets/images/common_icon_01.svg',
+              fit: BoxFit.contain,
+            ),
+          ),
         ),
         const SizedBox(width: 8),
         const Text("Kishi",style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
@@ -120,7 +135,7 @@ class PcHomeLayout extends StatelessWidget {
         child: SizedBox(
           height: 270, // 高さを抑える
           child: Image.asset(
-            "assets/images/background.png",
+            "assets/images/home_background_01.webp",
             fit: BoxFit.cover, // 横幅いっぱいに拡大
           ),
         ),
@@ -202,7 +217,7 @@ class PcMinHomeLayout extends StatelessWidget {
         child: SizedBox(
           height: -0.36*size.width+630 , // 高さを抑える
           child: Image.asset(
-            "assets/images/background.png",
+            "assets/images/home_background_01.webp",
             fit: BoxFit.cover, // 横幅いっぱいに拡大
           ),
         ),
@@ -232,8 +247,8 @@ class PcMinHomeLayout extends StatelessWidget {
         child: ListView(
           children: [
             DrawerHeader(
-              child: Text("メニュー", style: TextStyle(fontSize: 20)),
               decoration: BoxDecoration(color: Colors.blue),
+              child: Text("メニュー", style: TextStyle(fontSize: 20)),
             ),
             ListTile(
               title: Text("プロフィール"),

@@ -18,6 +18,7 @@ dependencies:
   go_router: ^14.8.1
   flutter_localizations:
     sdk: flutter
+  flutter_svg: ^2.3.0
 # intl: ^0.20.2
 
 dev_dependencies:
@@ -31,8 +32,7 @@ flutter:
   generate: true
 
   assets:
-    - ./assets/images/background.png
-    - ./assets/images/profile.png
+    - assets/images/
 
   fonts:
     - family: Noto_Sans_JP
