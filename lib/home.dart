@@ -4,6 +4,7 @@ import 'package:myhomepage/widgets/custom_app_bar.dart';
 import 'package:myhomepage/widgets/custom_drawer.dart';
 import 'package:myhomepage/widgets/custom_min_app_bar.dart';
 import 'package:myhomepage/widgets/profile_section.dart';
+import 'package:myhomepage/widgets/side_info_section.dart';
 
 
 
@@ -110,28 +111,7 @@ class PcHomeLayout extends StatelessWidget {
               const SizedBox(width: 1),
               const SizedBox(width: 1),
               ProfileSection(width: size.width * 0.5),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    width: size.width * 0.2,
-                    height: 300,
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Container(
-                    width: size.width * 0.2,
-                    height: 600,
-                    decoration: BoxDecoration(
-                      color: Colors.yellow,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ],
-              ),
+              SideInfoSection(width: (size.width * 0.22).clamp(220.0, 320.0)),
               const SizedBox(width: 1),
               const SizedBox(width: 1),
               const SizedBox(width: 1),

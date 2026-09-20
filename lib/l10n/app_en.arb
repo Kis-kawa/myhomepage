@@ -8,7 +8,7 @@
   "koushinB":"Updated April 14, 2025",
   "koushinC":"Updated April 14, 2025",
   "koushinD":"Updated April 14, 2025",
-  "renrakuMail":"m21041@g.metro-cit.ac.jp",
+  "renrakuMail":"kishikawa-kyohei@ed.tmu.ac.jp",
   "renrakuX":"@tekitou",
   "pSinmei":"full name",
   "pName":"岸川享平（Kishikawa kyohei）",
@@ -37,5 +37,10 @@
   "clubActivity3": "Jul 15, 2023: Judo Club, Kanto-Shinetsu KOSEN Athletic Meet, Men's Team 3rd",
   "clubActivity4": "Jun 24, 2023: Judo Club, Kanto KOSEN Spring Judo Tournament, Men's Team 2nd",
   "clubActivity5": "Mar 11, 2023: Judo Club, Kanto KOSEN Freshman Tournament, Men's Team 2nd",
-  "clubActivity6": "Jul 9, 2022: Judo Club, Kanto-Shinetsu KOSEN Athletic Meet, Men's Team 3rd"
+  "clubActivity6": "Jul 9, 2022: Judo Club, Kanto-Shinetsu KOSEN Athletic Meet, Men's Team 3rd",
+  "aboutMeSectionTitle": "About Me",
+  "aboutMeBody": "Acquired broad knowledge of networking across L1 to L7 of the OSI model at KOSEN, with experience in campus network design and building a Tier 1 network for laboratory experiments. Later encountered Flutter and became immersed in app development. Currently working as a long-term intern, handling full-stack development for commercial applications operating in production. For graduation research, worked on applying Encryption-then-Compression (EtC) systems to H.264 (MPEG-4 AVC).",
+  "linksSectionTitle": "Links & Contact",
+  "githubLabel": "GitHub",
+  "emailLabel": "Email"
 }

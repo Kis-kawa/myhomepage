@@ -60,7 +60,7 @@ class ProfileSection extends StatelessWidget {
         const SizedBox(height: 8),
         Divider(
           thickness: 1.5,
-          color: theme.colorScheme.primary.withValues(alpha: 0.4),
+          color: theme.colorScheme.primary.withValues(alpha: 0.6),
         ),
         const SizedBox(height: 12),
       ],

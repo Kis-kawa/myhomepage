@@ -169,6 +169,7 @@ void main() {
                 primarySwatch: Colors.indigo,
                 brightness: Brightness.dark,
               ).copyWith(
+                primary: const Color(0xFF82B1FF),
                 secondary: Colors.amber,
                 surface: const Color(0xFF1E1E1E),
                 surfaceContainer: const Color(0xFF22272E),

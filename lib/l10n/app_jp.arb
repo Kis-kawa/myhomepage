@@ -8,7 +8,7 @@
   "koushinB":"2025年4月14日 更新",
   "koushinC":"2025年4月14日 更新",
   "koushinD":"2025年4月14日 更新",
-  "renrakuMail":"m21041@g.metro-cit.ac.jp",
+  "renrakuMail":"kishikawa-kyohei@ed.tmu.ac.jp",
   "renrakuX":"@tekitou",
   "pSinmei":"氏名",
   "pName":"岸川享平（きしかわ きょうへい）",
@@ -37,5 +37,10 @@
   "clubActivity3": "2023/7/15 : 柔道部 関東信越地区高等専門学校体育大会柔道競技 男子団体戦第3位",
   "clubActivity4": "2023/6/24 : 柔道部 関東高等専門学校春季柔道大会 男子団体戦第2位",
   "clubActivity5": "2023/3/11 : 柔道部 関東高等専門学校総合体育大会新人大会 男子団体戦第2位",
-  "clubActivity6": "2022/7/9 : 柔道部 関東信越地区高等専門学校体育大会 男子団体戦第3位"
+  "clubActivity6": "2022/7/9 : 柔道部 関東信越地区高等専門学校体育大会 男子団体戦第3位",
+  "aboutMeSectionTitle": "自己紹介",
+  "aboutMeBody": "高専にてOSI参照モデルのL1からL7まで幅広くネットワークを学び、学内ネットワーク設計や実験実習用のTier 1ネットワーク構築を経験。その後、Flutterに出会いアプリ開発に没頭。現在は長期インターンにて、実際に本番稼働している商用アプリケーションのフルスタック開発を担当している。卒業研究では、暗号化してから圧縮する（EtC）システムのH.264（MPEG-4 AVC）への適用に取り組んだ。",
+  "linksSectionTitle": "リンク & 連絡先",
+  "githubLabel": "GitHub",
+  "emailLabel": "メール"
 }
