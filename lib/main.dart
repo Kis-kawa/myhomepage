@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:myhomepage/home.dart';
 import 'package:myhomepage/news.dart';
 // ignore: avoid_web_libraries_in_flutter
-import 'dart:html' as html;
+import 'package:web/web.dart' as web;
 import 'package:myhomepage/l10n/l10n.dart';
+import 'package:myhomepage/providers/locale_provider.dart';
 
 
 /// 汎用的なレスポンシブレイアウトウィジェット
@@ -46,7 +48,7 @@ void main() {
   setUrlStrategy(PathUrlStrategy()); //パスの/#/をなくす
 
   //スマホか確認
-  bool isMobile = html.window.navigator.userAgent.toLowerCase().contains('iphone') || (html.window.navigator.userAgent.toLowerCase().contains('android') && html.window.navigator.userAgent.toLowerCase().contains('mobile'));
+  bool isMobile = web.window.navigator.userAgent.toLowerCase().contains('iphone') || (web.window.navigator.userAgent.toLowerCase().contains('android') && web.window.navigator.userAgent.toLowerCase().contains('mobile'));
 
   final router = GoRouter(
     initialLocation: '/home',
@@ -72,45 +74,56 @@ void main() {
     ],
   );
 
-  runApp(MaterialApp.router(
-    routeInformationParser: router.routeInformationParser,
-    routerDelegate: router.routerDelegate,
-    routeInformationProvider: router.routeInformationProvider,
-    localizationsDelegates: L10n.localizationsDelegates,
-    supportedLocales: L10n.supportedLocales,
-    localeResolutionCallback: (locale, supportedLocales) {
-        if (locale != null) {
-          final _locale = Locale(locale.languageCode);
-          if (supportedLocales.contains(_locale)) {
-            return _locale;
-          }
-        }
-        return supportedLocales.first;
-    },
-    theme: ThemeData(
-      primarySwatch: Colors.indigo, // デフォルトのメインカラー
-          colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: Colors.indigo,
-          ).copyWith(
-            secondary: Colors.amber, // アクセントカラー（ボタン・FABなど）
-          ),
-      fontFamily: 'Noto_Sans_JP',
-      textTheme: const TextTheme(
-        bodyLarge: TextStyle(
-          fontSize: 18.0,
-          color: Colors.black87,
-          fontWeight: FontWeight.bold,
-        ),
-        bodyMedium: TextStyle(
-          fontSize: 16.0,
-          color: Colors.black87,
-          fontWeight: FontWeight.w600,
-        ),
-        bodySmall: TextStyle(
-          fontSize: 14.0,
-          color: Colors.black54,
-        ),
+
+  runApp(
+    ProviderScope(
+      child: Consumer(
+        builder: (context, ref, child) {
+          final locale = ref.watch(localeProvider);
+          return MaterialApp.router(
+            locale: locale,
+            routeInformationParser: router.routeInformationParser,
+            routerDelegate: router.routerDelegate,
+            routeInformationProvider: router.routeInformationProvider,
+            localizationsDelegates: L10n.localizationsDelegates,
+            supportedLocales: L10n.supportedLocales,
+            localeResolutionCallback: (locale, supportedLocales) {
+                if (locale != null) {
+                  final _locale = Locale(locale.languageCode);
+                  if (supportedLocales.contains(_locale)) {
+                    return _locale;
+                  }
+                }
+                return supportedLocales.first;
+            },
+            theme: ThemeData(
+              primarySwatch: Colors.indigo, // デフォルトのメインカラー
+                  colorScheme: ColorScheme.fromSwatch(
+                    primarySwatch: Colors.indigo,
+                  ).copyWith(
+                    secondary: Colors.amber, // アクセントカラー（ボタン・FABなど）
+                  ),
+              fontFamily: 'Noto_Sans_JP',
+              textTheme: const TextTheme(
+                bodyLarge: TextStyle(
+                  fontSize: 18.0,
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                ),
+                bodyMedium: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w600,
+                ),
+                bodySmall: TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.black54,
+                ),
+              ),
+            ),
+          );
+        },
       ),
     ),
-  ));
+  );
 }
