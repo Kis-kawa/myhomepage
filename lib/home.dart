@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myhomepage/l10n/l10n.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:myhomepage/utils/language_button.dart';
 
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -55,6 +56,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             navItem(context, "研究", "/research"),
             const SizedBox(width: 8),
             navItem(context, "ソフトウェア", "/software"),
+            const Spacer(),
+            const LanguageButton(),
+            Container(width: size.width*0.2),
       ],
     );
 
@@ -93,9 +97,7 @@ class CustomMinAppBar extends StatelessWidget {
       SizedBox(width: 1,),
 
       Row(mainAxisAlignment: MainAxisAlignment.start, children:[
-        Icon(Icons.language),
-        const SizedBox(width: 8),
-        const Text("English",style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+        const LanguageButton(),
         const SizedBox(width: 8),
         Builder(
           //sacffoldを持ってくる
