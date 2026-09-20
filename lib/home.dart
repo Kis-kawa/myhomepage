@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myhomepage/l10n/l10n.dart';
 import 'package:myhomepage/widgets/custom_app_bar.dart';
+import 'package:myhomepage/widgets/custom_drawer.dart';
 import 'package:myhomepage/widgets/custom_min_app_bar.dart';
 
 
@@ -260,25 +261,8 @@ class PcMinHomeLayout extends StatelessWidget {
     ],);
 
     return Scaffold(
-      endDrawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.blue),
-              child: Text("メニュー", style: TextStyle(fontSize: 20)),
-            ),
-            ListTile(
-              title: Text("プロフィール"),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text("記事"),
-              onTap: () {},
-            ),
-          ],
-        ),
-      ),
-    body: body,
+      endDrawer: const CustomDrawer(),
+      body: body,
     );
   }
 }

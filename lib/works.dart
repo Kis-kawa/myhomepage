@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myhomepage/widgets/custom_app_bar.dart';
+import 'package:myhomepage/widgets/custom_drawer.dart';
 import 'package:myhomepage/widgets/custom_min_app_bar.dart';
 
 class PcWorksLayout extends StatelessWidget {
@@ -28,7 +29,7 @@ class PcMinWorksLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: const Drawer(),
+      endDrawer: const CustomDrawer(),
       body: const Column(
         children: [
           CustomMinAppBar(),
