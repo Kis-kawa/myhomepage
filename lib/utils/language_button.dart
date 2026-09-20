@@ -6,10 +6,12 @@ class LanguageButton extends ConsumerWidget {
   const LanguageButton({super.key});
 
   Widget _buildLanguageItem({
+    required BuildContext context,
     required String label,
     required bool isSelected,
     required VoidCallback onTap,
   }) {
+    final activeColor = Theme.of(context).colorScheme.onSurface;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(4),
@@ -18,7 +20,7 @@ class LanguageButton extends ConsumerWidget {
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
-              color: isSelected ? Colors.black87 : Colors.transparent,
+              color: isSelected ? activeColor : Colors.transparent,
               width: 2.0,
             ),
           ),
@@ -28,7 +30,7 @@ class LanguageButton extends ConsumerWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-            color: isSelected ? Colors.black87 : Colors.grey,
+            color: isSelected ? activeColor : Colors.grey,
             letterSpacing: 0.5,
           ),
         ),
@@ -47,6 +49,7 @@ class LanguageButton extends ConsumerWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         _buildLanguageItem(
+          context: context,
           label: 'JAPAN',
           isSelected: isJp,
           onTap: () {
@@ -65,6 +68,7 @@ class LanguageButton extends ConsumerWidget {
           ),
         ),
         _buildLanguageItem(
+          context: context,
           label: 'GLOBAL',
           isSelected: isEn,
           onTap: () {

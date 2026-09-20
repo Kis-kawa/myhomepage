@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myhomepage/utils/language_button.dart';
+import 'package:myhomepage/widgets/theme_mode_button.dart';
 
 class SmartphoneAppBar extends StatelessWidget implements PreferredSizeWidget {
   const SmartphoneAppBar({super.key});
@@ -55,23 +56,26 @@ class SmartphoneAppBar extends StatelessWidget implements PreferredSizeWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const LanguageButton(),
-            const SizedBox(width: 4),
+            const SizedBox(width: 2),
+            const ThemeModeButton(),
+            const SizedBox(width: 2),
             Builder(
               builder: (context) => IconButton(
-                icon: const Icon(Icons.menu, color: Colors.black),
+                icon: Icon(Icons.menu, color: Theme.of(context).colorScheme.onSurface),
                 onPressed: () {
                   Scaffold.of(context).openEndDrawer();
                 },
                 iconSize: 28.0,
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 8),
           ],
         ),
       ],
     );
 
-    return SizedBox(
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
       width: size.width,
       height: 60,
       child: appbar,

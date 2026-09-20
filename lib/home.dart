@@ -29,8 +29,72 @@ class PcHomeLayout extends StatelessWidget {
       ),
       SingleChildScrollView(
         child: Center(child:Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-        Container(width: size.width ,height: 270,color: Colors.transparent,),
-        Container(width: size.width, color:Colors.black, child: Row(crossAxisAlignment: CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        // Container(width: size.width ,height: 270,color: Colors.transparent,child: Center(child: Text("プロフィール"),),),
+        Container(
+          width: size.width,
+          height: 270,
+          color: Colors.transparent,
+          child: Center(
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                // 1. 最背面：ソフトな影
+                Text(
+                  "プロフィール",
+                  style: TextStyle(
+                    fontSize: 54,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 4.0,
+                    foreground: Paint()
+                      ..style = PaintingStyle.stroke
+                      ..strokeWidth = 14
+                      ..color = Colors.black.withValues(alpha: 0.6)
+                      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
+                  ),
+                ),
+                // 2. 外側の枠線（白）
+                Text(
+                  "プロフィール",
+                  style: TextStyle(
+                    fontSize: 54,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 4.0,
+                    foreground: Paint()
+                      ..style = PaintingStyle.stroke
+                      ..strokeWidth = 10
+                      ..strokeJoin = StrokeJoin.round
+                      ..color = Colors.white,
+                  ),
+                ),
+                // 3. 内側の枠線（黒）
+                Text(
+                  "プロフィール",
+                  style: TextStyle(
+                    fontSize: 54,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 4.0,
+                    foreground: Paint()
+                      ..style = PaintingStyle.stroke
+                      ..strokeWidth = 4
+                      ..strokeJoin = StrokeJoin.round
+                      ..color = Colors.black,
+                  ),
+                ),
+                // 4. 最前面：文字本体
+                const Text(
+                  "プロフィール",
+                  style: TextStyle(
+                    fontSize: 54,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 4.0,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Container(width: size.width, color: Theme.of(context).scaffoldBackgroundColor, child: Row(crossAxisAlignment: CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           SizedBox(width: 1,),
           SizedBox(width: 1),
           SizedBox(width: 1),
@@ -113,8 +177,71 @@ class PcMinHomeLayout extends StatelessWidget {
         child: Center(child:Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(width: size.width ,height: -0.36*size.width+630,color: Colors.transparent,child: Center(child: Text("プロフィール /n 4月14日"),),),
-            Container(width: size.width ,color: Colors.black, child: Column(children: [
+            Container(
+              width: size.width,
+              height: -0.36 * size.width + 630,
+              color: Colors.transparent,
+              child: Center(
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    // 1. 最背面：ソフトな影
+                    Text(
+                      "プロフィール",
+                      style: TextStyle(
+                        fontSize: 54,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 4.0,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 14
+                          ..color = Colors.black.withValues(alpha: 0.6)
+                          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
+                      ),
+                    ),
+                    // 2. 外側の枠線（白）
+                    Text(
+                      "プロフィール",
+                      style: TextStyle(
+                        fontSize: 54,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 4.0,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 10
+                          ..strokeJoin = StrokeJoin.round
+                          ..color = Colors.white,
+                      ),
+                    ),
+                    // 3. 内側の枠線（黒）
+                    Text(
+                      "プロフィール",
+                      style: TextStyle(
+                        fontSize: 54,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 4.0,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 4
+                          ..strokeJoin = StrokeJoin.round
+                          ..color = Colors.black,
+                      ),
+                    ),
+                    // 4. 最前面：文字本体
+                    const Text(
+                      "プロフィール",
+                      style: TextStyle(
+                        fontSize: 54,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 4.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(width: size.width ,color: Theme.of(context).scaffoldBackgroundColor, child: Column(children: [
               Container(width: size.width*0.9 ,height: 300,color: Colors.red,),
               Container(width: size.width*0.9 ,height: 300,color: Colors.yellow,),
               Container(width: size.width*0.9 ,height: 300,color: Colors.green,),

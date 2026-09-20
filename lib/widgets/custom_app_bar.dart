@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:myhomepage/l10n/l10n.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myhomepage/utils/language_button.dart';
+import 'package:myhomepage/widgets/theme_mode_button.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
@@ -76,11 +77,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         navItem(context, l10n.titleD, "/others"),
         const Spacer(),
         const LanguageButton(),
-        const SizedBox(width: 120),
+        const SizedBox(width: 8),
+        const ThemeModeButton(),
+        const SizedBox(width: 100),
       ],
     );
 
-    return SizedBox(
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
       width: size.width,
       height: 70,
       child: appbar,

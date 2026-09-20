@@ -11,6 +11,7 @@ import 'package:myhomepage/others.dart';
 import 'package:web/web.dart' as web;
 import 'package:myhomepage/l10n/l10n.dart';
 import 'package:myhomepage/providers/locale_provider.dart';
+import 'package:myhomepage/providers/theme_provider.dart';
 
 
 /// 汎用的なレスポンシブレイアウトウィジェット
@@ -110,8 +111,11 @@ void main() {
       child: Consumer(
         builder: (context, ref, child) {
           final locale = ref.watch(localeProvider);
+          final themeMode = ref.watch(themeModeProvider);
+
           return MaterialApp.router(
             locale: locale,
+            themeMode: themeMode,
             routeInformationParser: router.routeInformationParser,
             routerDelegate: router.routerDelegate,
             routeInformationProvider: router.routeInformationProvider,
@@ -127,12 +131,17 @@ void main() {
                 return supportedLocales.first;
             },
             theme: ThemeData(
-              primarySwatch: Colors.indigo, // デフォルトのメインカラー
-                  colorScheme: ColorScheme.fromSwatch(
-                    primarySwatch: Colors.indigo,
-                  ).copyWith(
-                    secondary: Colors.amber, // アクセントカラー（ボタン・FABなど）
-                  ),
+              brightness: Brightness.light,
+              scaffoldBackgroundColor: Colors.white,
+              primarySwatch: Colors.indigo,
+              colorScheme: ColorScheme.fromSwatch(
+                primarySwatch: Colors.indigo,
+                brightness: Brightness.light,
+              ).copyWith(
+                secondary: Colors.amber,
+                surface: Colors.white,
+                onSurface: Colors.black87,
+              ),
               fontFamily: 'Noto_Sans_JP',
               textTheme: const TextTheme(
                 bodyLarge: TextStyle(
@@ -148,6 +157,36 @@ void main() {
                 bodySmall: TextStyle(
                   fontSize: 14.0,
                   color: Colors.black54,
+                ),
+              ),
+            ),
+            darkTheme: ThemeData(
+              brightness: Brightness.dark,
+              scaffoldBackgroundColor: const Color(0xFF121212),
+              primarySwatch: Colors.indigo,
+              colorScheme: ColorScheme.fromSwatch(
+                primarySwatch: Colors.indigo,
+                brightness: Brightness.dark,
+              ).copyWith(
+                secondary: Colors.amber,
+                surface: const Color(0xFF1E1E1E),
+                onSurface: Colors.white,
+              ),
+              fontFamily: 'Noto_Sans_JP',
+              textTheme: const TextTheme(
+                bodyLarge: TextStyle(
+                  fontSize: 18.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+                bodyMedium: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+                bodySmall: TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.white70,
                 ),
               ),
             ),
