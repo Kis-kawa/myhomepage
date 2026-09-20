@@ -16,7 +16,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: GestureDetector(
-        onTap: () => context.push(path),
+        onTap: () {
+          final currentPath = GoRouterState.of(context).uri.path;
+          if (currentPath == path) return;
+          context.push(path);
+        },
         child: Text(title, style: const TextStyle(fontSize: 20)),
       ),
     );
@@ -31,7 +35,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     final appbar = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-            Container(width: size.width*0.2),
+            Container(width: size.width*0.14),
             CircleAvatar(
               radius: 20,
               backgroundColor: Colors.black,
@@ -48,17 +52,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               "Kishi",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
+            SizedBox(width: size.width * 0.06),
+            navItem(context, l10n.titleA, "/home"),
             const SizedBox(width: 8),
-            navItem(context, "プロフィール", "/home"),
+            navItem(context, l10n.titleB, "/study"),
             const SizedBox(width: 8),
-            navItem(context, "記事", "/news"),
+            navItem(context, l10n.titleC, "/works"),
             const SizedBox(width: 8),
-            navItem(context, "研究", "/research"),
-            const SizedBox(width: 8),
-            navItem(context, "ソフトウェア", "/software"),
+            navItem(context, l10n.titleD, "/others"),
             const Spacer(),
             const LanguageButton(),
-            Container(width: size.width*0.2),
+            const SizedBox(width: 120),
       ],
     );
 
