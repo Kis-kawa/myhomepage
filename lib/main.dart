@@ -50,6 +50,7 @@ class ResponsiveLayout<T extends Widget, Bool> extends StatelessWidget {
 
 void main() {
   setUrlStrategy(PathUrlStrategy()); //パスの/#/をなくす
+  web.document.title = "HP | Kyohei Kishikawa";
 
   //スマホか確認
   bool isMobile = web.window.navigator.userAgent.toLowerCase().contains('iphone') || (web.window.navigator.userAgent.toLowerCase().contains('android') && web.window.navigator.userAgent.toLowerCase().contains('mobile'));
