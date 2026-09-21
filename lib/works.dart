@@ -6,29 +6,28 @@ import 'package:myhomepage/widgets/custom_min_app_bar.dart';
 import 'package:myhomepage/widgets/decorated_page_title.dart';
 import 'package:myhomepage/widgets/work_card.dart';
 
-final List<WorkItem> sampleWorks = [
-  const WorkItem(
-    title: "うさぎと狩犬",
+List<WorkItem> getWorks(L10n l10n) => [
+  WorkItem(
+    title: l10n.workRabbitTitle,
     imageAsset: "assets/images/works_thumbnail_01.webp",
-    description: "UnityとC#を用いて開発したボードゲーム。初めてのunity作品。有名なボードゲームである「うさぎと狩犬」の作成を通して、基礎的なゲーム制作を学んだ。",
-    techStack: ["Unity", "C#", "Blender"],
+    description: l10n.workRabbitDesc,
+    techStack: const ["Unity", "C#", "Blender"],
     externalUrl: "https://kis-kawa.github.io/myhomepage/unity/",
     isComingSoon: false,
   ),
-  const WorkItem(
-    title: "柔道用タイマー",
+  WorkItem(
+    title: l10n.workTimerTitle,
     imageAsset: "assets/images/works_thumbnail_02.webp",
-    description: "柔道の練習・試合用のタイマーアプリ。有効は未対応。乱取りには使えます。",
-    techStack: ["Flutter", "Dart", "Riverpod", "GoRouter"],
+    description: l10n.workTimerDesc,
+    techStack: const ["Flutter", "Dart", "Riverpod", "GoRouter"],
     githubUrl: "https://github.com/Kis-kawa/future-workshop",
     isComingSoon: false,
   ),
-  const WorkItem(
-    title: "画像用EtC（暗号化し圧縮する）システム",
+  WorkItem(
+    title: l10n.workEtcTitle,
     imageAsset: "assets/images/works_thumbnail_03.webp",
-    description: "JPEG画像に対する基本的なEtCシステムを体験できる。",
-    techStack: ["Python", "OpenCV", "NumPy","FFmpeg"],
-    // githubUrl: "https://github.com/Kis-kawa",
+    description: l10n.workEtcDesc,
+    techStack: const ["Python", "OpenCV", "NumPy", "FFmpeg"],
     isComingSoon: true,
   ),
 ];
@@ -39,6 +38,8 @@ class WorksGridSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final l10n = L10n.of(context)!;
+    final works = getWorks(l10n);
 
     return Container(
       width: size.width,
@@ -75,9 +76,9 @@ class WorksGridSection extends StatelessWidget {
                   mainAxisSpacing: spacing,
                   childAspectRatio: 16 / 9,
                 ),
-                itemCount: sampleWorks.length,
+                itemCount: works.length,
                 itemBuilder: (context, index) {
-                  return WorkCard(item: sampleWorks[index]);
+                  return WorkCard(item: works[index]);
                 },
               );
             },

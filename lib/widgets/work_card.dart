@@ -311,7 +311,11 @@ class WorkDetailDialog extends StatelessWidget {
                                     web.window.open(item.externalUrl!, '_blank');
                                   },
                                   icon: const Icon(Icons.open_in_new, size: 16),
-                                  label: const Text("サイトを開く"),
+                                  label: Text(
+                                    Localizations.localeOf(context).languageCode == 'en'
+                                        ? "Open Site"
+                                        : "サイトを開く",
+                                  ),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: theme.colorScheme.primary,
                                     foregroundColor: theme.colorScheme.onPrimary,
@@ -345,8 +349,8 @@ class WorkDetailDialog extends StatelessWidget {
 
                       // 5. テキスト説明文
                       Divider(
-                        color: theme.colorScheme.outlineVariant
-                            .withValues(alpha: 0.3),
+                        color: theme.colorScheme.onSurface
+                            .withValues(alpha: 0.15),
                       ),
                       const SizedBox(height: 14),
                       Text(
