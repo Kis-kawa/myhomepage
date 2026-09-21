@@ -9,6 +9,40 @@ import 'package:web/web.dart' as web;
 class OthersContentSection extends StatelessWidget {
   const OthersContentSection({super.key});
 
+  Widget _buildUpdateItem(BuildContext context, String text) {
+    final theme = Theme.of(context);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 7, right: 10, left: 4),
+            child: Container(
+              width: 6,
+              height: 6,
+              decoration: BoxDecoration(
+                color: theme.colorScheme.primary.withValues(alpha: 0.8),
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 15,
+                height: 1.6,
+                letterSpacing: 0.3,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.9),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -90,6 +124,20 @@ class OthersContentSection extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 48),
+
+              // 更新情報
+              Text(
+                l10n.updateInfoTitle,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.onSurface,
+                ),
+              ),
+              const SizedBox(height: 14),
+              _buildUpdateItem(context, l10n.updateInfoItem1),
+              _buildUpdateItem(context, l10n.updateInfoItem2),
               const SizedBox(height: 60),
             ],
           ),
