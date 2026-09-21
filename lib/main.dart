@@ -114,6 +114,7 @@ void main() {
           final themeMode = ref.watch(themeModeProvider);
 
           return MaterialApp.router(
+            title: "HP | Kyohei Kishikawa",
             locale: locale,
             themeMode: themeMode,
             routeInformationParser: router.routeInformationParser,
