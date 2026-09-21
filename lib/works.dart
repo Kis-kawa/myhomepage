@@ -42,6 +42,10 @@ class WorksGridSection extends StatelessWidget {
 
     return Container(
       width: size.width,
+      constraints: BoxConstraints(
+        minHeight: size.height,
+      ),
+      alignment: Alignment.topCenter,
       color: Theme.of(context).colorScheme.surfaceContainer,
       padding: EdgeInsets.symmetric(
         vertical: 40,
