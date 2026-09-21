@@ -60,48 +60,62 @@ void main() {
     routes: [
       GoRoute(
         path: '/home',
-        builder: (context, state) => ResponsiveLayout(
-          pcLayout: PcHomeLayout.new,
-          pcMinLayout: PcMinHomeLayout.new,
-          // smartphoneLayout: SmartphoneNewsLayout.new,
-          smartphoneLayout: PcMinHomeLayout.new, // とりあえず小さいPC画面でスマホ表示
-          deviceType: isMobile,
+        pageBuilder: (context, state) => NoTransitionPage(
+          key: state.pageKey,
+          child: ResponsiveLayout(
+            pcLayout: PcHomeLayout.new,
+            pcMinLayout: PcMinHomeLayout.new,
+            smartphoneLayout: PcMinHomeLayout.new,
+            deviceType: isMobile,
+          ),
         ),
       ),
       GoRoute(
         path: '/news',
-        builder: (context, state) => ResponsiveLayout(
-          pcLayout: PcNewsLayout.new,
-          pcMinLayout: PcMinNewsLayout.new,
-          smartphoneLayout: SmartphoneNewsLayout.new,
-          deviceType: isMobile,
+        pageBuilder: (context, state) => NoTransitionPage(
+          key: state.pageKey,
+          child: ResponsiveLayout(
+            pcLayout: PcNewsLayout.new,
+            pcMinLayout: PcMinNewsLayout.new,
+            smartphoneLayout: SmartphoneNewsLayout.new,
+            deviceType: isMobile,
+          ),
         ),
       ),
       GoRoute(
         path: '/study',
-        builder: (context, state) => ResponsiveLayout(
-          pcLayout: PcStudyLayout.new,
-          pcMinLayout: PcMinStudyLayout.new,
-          smartphoneLayout: PcMinStudyLayout.new,
-          deviceType: isMobile,
+        pageBuilder: (context, state) => NoTransitionPage(
+          key: state.pageKey,
+          child: ResponsiveLayout(
+            pcLayout: PcStudyLayout.new,
+            pcMinLayout: PcMinStudyLayout.new,
+            smartphoneLayout: PcMinStudyLayout.new,
+            deviceType: isMobile,
+          ),
         ),
       ),
       GoRoute(
         path: '/works',
-        builder: (context, state) => ResponsiveLayout(
-          pcLayout: PcWorksLayout.new,
-          pcMinLayout: PcMinWorksLayout.new,
-          smartphoneLayout: PcMinWorksLayout.new,
-          deviceType: isMobile,
+        pageBuilder: (context, state) => NoTransitionPage(
+          key: state.pageKey,
+          child: ResponsiveLayout(
+            pcLayout: PcWorksLayout.new,
+            pcMinLayout: PcMinWorksLayout.new,
+            smartphoneLayout: PcMinWorksLayout.new,
+            deviceType: isMobile,
+          ),
         ),
       ),
       GoRoute(
         path: '/others',
-        builder: (context, state) => ResponsiveLayout(
-          pcLayout: PcOthersLayout.new,
-          pcMinLayout: PcMinOthersLayout.new,
-          smartphoneLayout: PcMinOthersLayout.new,
-          deviceType: isMobile,
+        pageBuilder: (context, state) => NoTransitionPage(
+          key: state.pageKey,
+          child: ResponsiveLayout(
+            pcLayout: PcOthersLayout.new,
+            pcMinLayout: PcMinOthersLayout.new,
+            smartphoneLayout: PcMinOthersLayout.new,
+            deviceType: isMobile,
+          ),
         ),
       ),
     ],
