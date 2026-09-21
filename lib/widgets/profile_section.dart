@@ -259,6 +259,10 @@ class ProfileSection extends StatelessWidget {
               context: context,
               text: l10n.clubActivity6,
             ),
+            _buildBulletItem(
+              context: context,
+              text: l10n.clubActivity7,
+            ),
           ],
         ),
       ],
