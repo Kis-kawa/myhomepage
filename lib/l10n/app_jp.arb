@@ -57,6 +57,8 @@
   "workTimerDesc": "柔道の練習・試合用のタイマーアプリ。有効は未対応。乱取りには使えます。",
   "workEtcTitle": "画像用EtC（暗号化し圧縮する）システム",
   "workEtcDesc": "JPEG画像に対する基本的なEtCシステムを体験できる。",
+  "workMineTitle": "マインゲーム",
+  "workMineDesc": "複数のマスの中から1つの当たりを探すミニゲーム。端末を順番に回しながら複数人で楽しめるパーティーゲームです。",
   "othersTitle": "その他",
   "othersBody": "mac book M1 pro を使っています。\nサイトの上の背景画像はある私の顔写真をEtCシステムにかけたものです。ちゃんと復元できます。",
   "othersContactTitle": "連絡先"
