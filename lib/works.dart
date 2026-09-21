@@ -34,11 +34,11 @@ List<WorkItem> getWorks(L10n l10n) => [
   ),
   WorkItem(
     title: l10n.workMineTitle,
-    // imageAsset: "assets/images/works_thumbnail_03.webp",
+    imageAsset: "assets/images/works_thumbnail_04.webp",
     description: l10n.workMineDesc,
     techStack: const ["Dart", "Flutter"],
     externalUrl: "https://kis-kawa.github.io/myhomepage/mine/",
-    isComingSoon: true,
+    isComingSoon: false,
   ),
 ];
 
