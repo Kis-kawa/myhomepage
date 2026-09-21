@@ -36,7 +36,7 @@ class CustomDrawer extends StatelessWidget {
       onTap: () {
         Navigator.of(context).pop(); // ドロワーを閉じる
         if (currentPath == path) return;
-        context.push(path);
+        context.go(path);
       },
     );
   }

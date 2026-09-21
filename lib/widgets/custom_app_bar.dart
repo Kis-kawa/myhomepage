@@ -19,7 +19,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         onTap: () {
           final currentPath = GoRouterState.of(context).uri.path;
           if (currentPath == path) return;
-          context.push(path);
+          context.go(path);
         },
         child: Text(title, style: const TextStyle(fontSize: 20)),
       ),
@@ -39,7 +39,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           onTap: () {
             final currentPath = GoRouterState.of(context).uri.path;
             if (currentPath == '/home') return;
-            context.push('/home');
+            context.go('/home');
           },
           borderRadius: BorderRadius.circular(8),
           child: Padding(
