@@ -705,6 +705,8 @@ class CompiledApp {
       _3528: () => globalThis.window,
       _3591: x0 => x0.navigator,
       _3980: x0 => x0.userAgent,
+      _6209: () => globalThis.document,
+      _6288: (x0,x1) => { x0.title = x1 },
 
     };
 
