@@ -123,9 +123,9 @@ void main() {
             supportedLocales: L10n.supportedLocales,
             localeResolutionCallback: (locale, supportedLocales) {
                 if (locale != null) {
-                  final _locale = Locale(locale.languageCode);
-                  if (supportedLocales.contains(_locale)) {
-                    return _locale;
+                  final currentLocale = Locale(locale.languageCode);
+                  if (supportedLocales.contains(currentLocale)) {
+                    return currentLocale;
                   }
                 }
                 return supportedLocales.first;
