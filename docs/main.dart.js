@@ -88873,13 +88873,14 @@ q=A.b([A.c7(i.a,m,m,A.c8(m,m,r,m,m,m,m,m,m,m,m,22,m,m,B.aU,m,m,!0,m,m,m,m,m,m,m,
 p=i.d
 if(p.length!==0){o=A.a4(p).h("ab<1,pD>")
 p=A.X(new A.ab(p,new A.aqX(l),o),o.h("aB.E"))
-B.b.E(q,A.b([new A.Xw(8,8,p,m),B.GG],g))}p=i.e==null
-if(!p||i.f!=null){o=A.b([],g)
-if(!p){p=A.c7(a.az(t.Gk).r.f.gcD()==="en"?"Open Site":"\u30b5\u30a4\u30c8\u3092\u958b\u304f",m,m,m)
+B.b.E(q,A.b([new A.Xw(8,8,p,m),B.GG],g))}p=A.b([],g)
+o=A.c7(a.az(t.Gk).r.f.gcD()==="en"?"Open Site":"\u30b5\u30a4\u30c8\u3092\u958b\u304f",m,m,m)
 n=A.aTs(m,m,s.b,m,m,m,m,m,m,s.c,m,m,m,m,new A.cP(A.dB(8),B.t),m,m,m,m,m)
-o.push(new A.cd(B.OO,new A.O7(!0,new A.aqY(this),m,m,m,n,B.v,m,!1,m,!0,m,new A.ZK(p,B.PR,n,m,m),m),m))}if(i.f!=null){s=s.b
+p.push(new A.cd(B.OO,new A.O7(!0,new A.aqY(this),m,m,m,n,B.v,m,!1,m,!0,m,new A.ZK(o,B.PR,n,m,m),m),m))
+if(i.f!=null){s=s.b
 s=A.aVl(m,m,m,m,m,m,m,m,m,s,m,m,m,m,new A.cP(A.dB(8),B.t),new A.bJ(s,1,B.H,-1),m,m,m,m)
-o.push(new A.RY(!0,new A.aqZ(this),m,m,m,s,m,m,!1,m,!0,m,new A.a0p(B.acI,B.PQ,s,m,m),m))}B.b.E(q,A.b([A.iL(o,B.R,B.C,B.M,0),B.GG],g))}q.push(A.NV(r.dj(0.15),m))
+p.push(new A.RY(!0,new A.aqZ(this),m,m,m,s,m,m,!1,m,!0,m,new A.a0p(B.acI,B.PQ,s,m,m),m))}B.b.E(q,A.b([A.iL(p,B.R,B.C,B.M,0),B.GG],g))
+q.push(A.NV(r.dj(0.15),m))
 q.push(B.GF)
 q.push(A.c7(i.b,m,m,A.c8(m,m,r.dj(0.85),m,m,m,m,m,m,m,m,14,m,m,m,m,1.65,!0,m,m,m,m,m,m,m,m)))
 return new A.NM(l.fx,B.P1,new A.cP(k,B.t),new A.eW(B.J5,A.Ld(j,A.ok(A.cB(A.b([h,new A.cd(B.P3,A.cB(q,B.al,B.C,B.M),m)],g),B.al,B.C,B.c4))),m),m)}}
@@ -88891,9 +88892,7 @@ $1(a){var s=null,r=this.a.ax.b,q=r.dj(0.12),p=A.dB(6),o=A.a7A(r.dj(0.35),1)
 return A.cZ(s,A.c7(a,s,s,A.c8(s,s,r,s,s,s,s,s,s,s,s,12,s,s,B.dX,s,s,!0,s,s,s,s,s,s,s,s)),B.v,s,s,new A.dl(q,s,o,p,s,s,B.b0),s,s,s,B.OR,s,s,s)},
 $S:542}
 A.aqY.prototype={
-$0(){var s=v.G.window,r=this.a.c.e
-r.toString
-s.open(r,"_blank")},
+$0(){v.G.window.open(this.a.c.e,"_blank")},
 $S:0}
 A.aqZ.prototype={
 $0(){var s=v.G.window,r=this.a.c.f
@@ -88901,7 +88900,7 @@ r.toString
 s.open(r,"_blank")},
 $S:0}
 A.Xv.prototype={
-O(a){var s,r,q=null,p=A.bf(a,q,t.l).w.a,o=A.d2(a,B.b5,t.c),n=A.b([new A.wW(o.ga0l(),o.ga0k(),"assets/images/works_thumbnail_01.webp",B.WJ,"https://kis-kawa.github.io/myhomepage/unity/",q),new A.wW(o.ga0n(),o.ga0m(),"assets/images/works_thumbnail_02.webp",B.Tx,q,"https://github.com/Kis-kawa/future-workshop"),new A.wW(o.ga0j(),o.ga0i(),"assets/images/works_thumbnail_03.webp",B.Ub,"https://kis-kawa.github.io/myhomepage/etc/",q)],t.nk)
+O(a){var s,r,q=null,p=A.bf(a,q,t.l).w.a,o=A.d2(a,B.b5,t.c),n=A.b([new A.wW(o.ga0l(),o.ga0k(),"assets/images/works_thumbnail_01.webp",B.WJ,"https://kis-kawa.github.io/myhomepage/unity/",q),new A.wW(o.ga0n(),o.ga0m(),"assets/images/works_thumbnail_02.webp",B.Tx,"https://kis-kawa.github.io/myhomepage/judo-timer/","https://github.com/Kis-kawa/future-workshop"),new A.wW(o.ga0j(),o.ga0i(),"assets/images/works_thumbnail_03.webp",B.Ub,"https://kis-kawa.github.io/myhomepage/etc/",q)],t.nk)
 o=p.a
 s=A.a3(a).ax
 r=s.p4
