@@ -21,6 +21,7 @@ List<WorkItem> getWorks(L10n l10n) => [
     description: l10n.workTimerDesc,
     techStack: const ["Flutter", "Dart", "Riverpod", "GoRouter"],
     githubUrl: "https://github.com/Kis-kawa/future-workshop",
+    externalUrl: "https://kis-kawa.github.io/myhomepage/judo-timer/",
     isComingSoon: false,
   ),
   WorkItem(
