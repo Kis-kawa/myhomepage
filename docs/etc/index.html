@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EtC 画像暗号化・復号ツール</title>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-light: #eef2ff;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --border-focus: #818cf8;
+      --success: #10b981;
+      --danger: #ef4444;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px 16px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .back-link:hover {
+      color: var(--primary);
+      background-color: var(--primary-light);
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-top: 4px;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      background: #e2e8f0;
+      padding: 4px;
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      gap: 4px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px 16px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .tab-btn.active {
+      background: var(--card-bg);
+      color: var(--primary);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Card */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 28px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    /* Drop Zone */
+    .drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 32px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: #fafafa;
+      position: relative;
+    }
+
+    .drop-zone:hover,
+    .drop-zone.dragover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .drop-zone-icon {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .drop-zone-text {
+      font-size: 0.95rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .drop-zone-subtext {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .file-info {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--text);
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .file-info.active {
+      display: flex;
+    }
+
+    /* Input with button */
+    .input-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .text-input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .text-input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    }
+
+    .secondary-btn {
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .secondary-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .input-help {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* Main Action Button */
+    .primary-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .primary-btn:hover:not(:disabled) {
+      background: var(--primary-hover);
+    }
+
+    .primary-btn:active:not(:disabled) {
+      transform: scale(0.99);
+    }
+
+    .primary-btn:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+    }
+
+    /* Output Section */
+    .output-section {
+      display: none;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 24px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .output-section.active {
+      display: block;
+    }
+
+    .output-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .preview-container {
+      max-width: 100%;
+      max-height: 480px;
+      overflow: auto;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      margin: 0 auto 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 8px;
+    }
+
+    canvas {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .output-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    /* Size Comparison */
+    .size-comparison {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: #f1f5f9;
+      border-radius: 10px;
+      padding: 12px 24px;
+      margin: 0 auto 16px;
+      border: 1px solid var(--border);
+    }
+
+    .size-box {
+      text-align: center;
+    }
+
+    .size-box-label {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .size-box-value {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .size-arrow {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      font-weight: bold;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: var(--success);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s ease, transform 0.1s ease;
+    }
+
+    .download-btn:hover {
+      opacity: 0.9;
+    }
+
+    .download-btn:active {
+      transform: scale(0.99);
+    }
+
+    .action-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Spinner */
+    .spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 0.8s linear infinite;
+    }
+
+    .spinner.active {
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Footer info */
+    footer {
+      margin-top: 32px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <a href="../" class="back-link">← ポートフォリオに戻る</a>
+      <h1>EtC体験ツール</h1>
+      <p class="subtitle">画像の暗号化・復号をWebクライアント完結で行える</p>
+      <p class="subtitle">処理前後でファイルサイズを比較してみてください</p>
+    </header>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" id="tab-encrypt" onclick="switchMode(true)">
+        暗号化
+      </button>
+      <button class="tab-btn" id="tab-decrypt" onclick="switchMode(false)">
+        復号
+      </button>
+    </div>
+
+    <!-- Main Card -->
+    <div class="card">
+      <!-- Upload Section -->
+      <div class="form-group">
+        <label class="form-label" id="upload-label">1. 画像を選択またはドロップ</label>
+        <div class="drop-zone" id="drop-zone">
+          <svg class="drop-zone-icon" id="drop-icon" width="36" height="36" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+            style="margin: 0 auto 8px; display: block; color: var(--text-muted);">
+            <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+            <circle cx="9" cy="9" r="2" />
+            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+          </svg>
+          <div class="drop-zone-text" id="drop-text">クリックしてJPEG画像を選択、またはここにドラッグ＆ドロップ</div>
+          <div class="drop-zone-subtext">JPEG形式 (.jpg, .jpeg) 専用（端末内で処理され、画像は外部送信されません）</div>
+          <input type="file" id="file-input" class="file-input" accept="image/jpeg,.jpg,.jpeg">
+        </div>
+        <div class="file-info" id="file-info">
+          <span id="file-name">filename.png</span>
+          <span id="file-dims" style="color: var(--text-muted); font-size: 0.8rem;">0 x 0 px</span>
+        </div>
+      </div>
+
+      <!-- Seed Section -->
+      <div class="form-group">
+        <label class="form-label" for="seed-input">2. シード値 (共通鍵)</label>
+        <div class="input-row">
+          <input type="number" id="seed-input" class="text-input" placeholder="整数を入力 (例: 12345)" min="1"
+            max="2147483647">
+          <button type="button" class="secondary-btn" id="random-seed-btn"
+            onclick="generateRandomSeed()">ランダム生成</button>
+        </div>
+        <div class="input-help" id="seed-help">
+          暗号化時に使用したシード値は、復号時に必要になります。控えておいてください。
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <button type="button" class="primary-btn" id="process-btn" onclick="runProcessing()" disabled>
+        <span class="spinner" id="btn-spinner"></span>
+        <span id="btn-text">暗号化を実行</span>
+      </button>
+    </div>
+
+    <!-- Output Section -->
+    <div class="output-section" id="output-section">
+      <div class="output-title" id="output-title">処理完了</div>
+      <div class="preview-container">
+        <canvas id="output-canvas"></canvas>
+      </div>
+
+      <!-- Size Comparison -->
+      <div class="size-comparison" id="size-comparison">
+        <div class="size-box">
+          <span class="size-box-label" id="size-original-label">元画像 (JPEG)</span>
+          <span class="size-box-value" id="size-original">-</span>
+        </div>
+        <div class="size-arrow">→</div>
+        <div class="size-box">
+          <span class="size-box-label" id="size-processed-label">暗号化後 (JPEG)</span>
+          <span class="size-box-value" id="size-processed">-</span>
+        </div>
+      </div>
+
+      <div class="output-meta" id="output-meta">解像度: - / 処理時間: -</div>
+      <div class="action-row">
+        <button type="button" class="download-btn" id="download-btn" onclick="downloadResult()">
+          画像をダウンロード (JPEG)
+        </button>
+        <button type="button" class="secondary-btn" id="send-to-decrypt-btn" style="display:none;"
+          onclick="sendResultToDecrypt()">
+          この画像を復号タブに送る →
+        </button>
+      </div>
+    </div>
+
+    <footer>
+      2026 Kyohei Kishikawa (TMU)
+    </footer>
+  </div>
+
+  <script>
+    // --- State ---
+    let isEncrypt = true;
+    let currentImage = null;
+    let originalFileName = "image";
+    let originalFileSize = 0;
+    let currentOutputBlob = null;
+
+    function formatBytes(bytes) {
+      if (!bytes || bytes === 0) return '0 B';
+      const k = 1024;
+      const sizes = ['B', 'KB', 'MB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+    }
+
+    // --- DOM Elements ---
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const fileInfo = document.getElementById('file-info');
+    const fileNameDisplay = document.getElementById('file-name');
+    const fileDimsDisplay = document.getElementById('file-dims');
+    const seedInput = document.getElementById('seed-input');
+    const randomSeedBtn = document.getElementById('random-seed-btn');
+    const seedHelp = document.getElementById('seed-help');
+    const processBtn = document.getElementById('process-btn');
+    const btnSpinner = document.getElementById('btn-spinner');
+    const btnText = document.getElementById('btn-text');
+    const outputSection = document.getElementById('output-section');
+    const outputCanvas = document.getElementById('output-canvas');
+    const outputTitle = document.getElementById('output-title');
+    const outputMeta = document.getElementById('output-meta');
+    const sendToDecryptBtn = document.getElementById('send-to-decrypt-btn');
+
+    // --- Mode Switching ---
+    function switchMode(encrypt) {
+      isEncrypt = encrypt;
+      document.getElementById('tab-encrypt').classList.toggle('active', encrypt);
+      document.getElementById('tab-decrypt').classList.toggle('active', !encrypt);
+
+      const sizeOrigLabel = document.getElementById('size-original-label');
+      const sizeProcLabel = document.getElementById('size-processed-label');
+
+      if (isEncrypt) {
+        btnText.textContent = '暗号化を実行';
+        randomSeedBtn.style.display = 'inline-block';
+        seedHelp.textContent = '暗号化時に使用したシード値は、復号時に必要になります。控えておいてください。';
+        if (sizeOrigLabel) sizeOrigLabel.textContent = '元画像 (JPEG)';
+        if (sizeProcLabel) sizeProcLabel.textContent = '暗号化後 (JPEG)';
+        if (!seedInput.value) generateRandomSeed();
+      } else {
+        btnText.textContent = '復号を実行';
+        randomSeedBtn.style.display = 'none';
+        seedHelp.textContent = '※ 暗号化時に指定したシード値を正確に入力してください。';
+        if (sizeOrigLabel) sizeOrigLabel.textContent = '暗号化JPEG';
+        if (sizeProcLabel) sizeProcLabel.textContent = '復号後 (JPEG)';
+      }
+      checkReady();
+    }
+
+    // --- Random Seed Generator ---
+    function generateRandomSeed() {
+      const seed = Math.floor(Math.random() * 2147483647) + 1;
+      seedInput.value = seed;
+      checkReady();
+    }
+
+    // Initial random seed for encryption
+    generateRandomSeed();
+
+    // --- File Upload & Drag-and-Drop ---
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      if (e.dataTransfer.files.length > 0) {
+        handleFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleFile(e.target.files[0]);
+      }
+    });
+
+    seedInput.addEventListener('input', checkReady);
+
+    function checkReady() {
+      const hasImage = currentImage !== null;
+      const hasSeed = seedInput.value.trim() !== '' && !isNaN(parseInt(seedInput.value, 10));
+      processBtn.disabled = !(hasImage && hasSeed);
+    }
+
+    function handleFile(file) {
+      const isJpeg = file.type === 'image/jpeg' || /\.(jpe?g)$/i.test(file.name);
+      if (!isJpeg) {
+        alert('JPEG形式 (.jpg または .jpeg) の画像を選択してください。');
+        return;
+      }
+      originalFileSize = file.size;
+      originalFileName = file.name.replace(/\.[^/.]+$/, "");
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          currentImage = img;
+          fileNameDisplay.textContent = file.name;
+          const cropW = Math.floor(img.width / 16) * 16;
+          const cropH = Math.floor(img.height / 16) * 16;
+          fileDimsDisplay.textContent = `${img.width}x${img.height} (${formatBytes(originalFileSize)})`;
+          fileInfo.classList.add('active');
+          checkReady();
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // --- EtC Algorithm (Sub-block based) ---
+    // Pseudo Random Number Generator (Mulberry32)
+    function createPRNG(seed) {
+      let a = (seed >>> 0) || 1;
+      return function () {
+        a = (a + 0x6D2B79F5) | 0;
+        let t = Math.imul(a ^ (a >>> 15), 1 | a);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    // RGB permutations
+    const RGB_PERMS = [
+      [0, 1, 2], [0, 2, 1], [1, 2, 0], [1, 0, 2], [2, 0, 1], [2, 1, 0]
+    ];
+
+    const INV_RGB_PERMS = RGB_PERMS.map(p => {
+      const inv = [0, 0, 0];
+      for (let i = 0; i < 3; i++) inv[p[i]] = i;
+      return inv;
+    });
+
+    // Permutation array (Fisher-Yates)
+    function getPermutation(rng, n) {
+      const arr = new Int32Array(n);
+      for (let i = 0; i < n; i++) arr[i] = i;
+      for (let i = n - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        const tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+      }
+      return arr;
+    }
+
+    // Subblock Transformation (Forward)
+    function etcTransformSubblock(sub, rot, flip, neg, rgbPerm) {
+      let out = new Uint8Array(8 * 8 * 3);
+      // 1. Rotation (rot * 90 deg clockwise)
+      for (let y = 0; y < 8; y++) {
+        for (let x = 0; x < 8; x++) {
+          let dstY = y, dstX = x;
+          if (rot === 1) {
+            dstY = x; dstX = 7 - y;
+          } else if (rot === 2) {
+            dstY = 7 - y; dstX = 7 - x;
+          } else if (rot === 3) {
+            dstY = 7 - x; dstX = y;
+          }
+          const srcIdx = (y * 8 + x) * 3;
+          const dstIdx = (dstY * 8 + dstX) * 3;
+          out[dstIdx] = sub[srcIdx];
+          out[dstIdx + 1] = sub[srcIdx + 1];
+          out[dstIdx + 2] = sub[srcIdx + 2];
+        }
+      }
+
+      // 2. Flip
+      if (flip > 0) {
+        let flipped = new Uint8Array(8 * 8 * 3);
+        for (let y = 0; y < 8; y++) {
+          for (let x = 0; x < 8; x++) {
+            let dstY = (flip === 2 || flip === 3) ? 7 - y : y;
+            let dstX = (flip === 1 || flip === 3) ? 7 - x : x;
+            const srcIdx = (y * 8 + x) * 3;
+            const dstIdx = (dstY * 8 + dstX) * 3;
+            flipped[dstIdx] = out[srcIdx];
+            flipped[dstIdx + 1] = out[srcIdx + 1];
+            flipped[dstIdx + 2] = out[srcIdx + 2];
+          }
+        }
+        out = flipped;
+      }
+
+      // 3. Negation & 4. RGB Permutation
+      for (let i = 0; i < 64; i++) {
+        const idx = i * 3;
+        let r = out[idx];
+        let g = out[idx + 1];
+        let b = out[idx + 2];
+        if (neg === 1) {
+          r = 255 - r;
+          g = 255 - g;
+          b = 255 - b;
+        }
+        const channels = [r, g, b];
+        out[idx] = channels[rgbPerm[0]];
+        out[idx + 1] = channels[rgbPerm[1]];
+        out[idx + 2] = channels[rgbPerm[2]];
+      }
+      return out;
+    }
+
+    // Subblock Transformation (Inverse)
+    function etcInverseTransformSubblock(sub, rot, flip, neg, rgbPermIdx) {
+      let out = new Uint8Array(8 * 8 * 3);
+      const invRgbPerm = INV_RGB_PERMS[rgbPermIdx];
+
+      // 1. Inverse RGB Permutation & 2. Inverse Negation
+      for (let i = 0; i < 64; i++) {
+        const idx = i * 3;
+        const channels = [sub[idx], sub[idx + 1], sub[idx + 2]];
+        let r = channels[invRgbPerm[0]];
+        let g = channels[invRgbPerm[1]];
+        let b = channels[invRgbPerm[2]];
+        if (neg === 1) {
+          r = 255 - r;
+          g = 255 - g;
+          b = 255 - b;
+        }
+        out[idx] = r;
+        out[idx + 1] = g;
+        out[idx + 2] = b;
+      }
+
+      // 3. Inverse Flip
+      if (flip > 0) {
+        let unFlipped = new Uint8Array(8 * 8 * 3);
+        for (let y = 0; y < 8; y++) {
+          for (let x = 0; x < 8; x++) {
+            let dstY = (flip === 2 || flip === 3) ? 7 - y : y;
+            let dstX = (flip === 1 || flip === 3) ? 7 - x : x;
+            const srcIdx = (y * 8 + x) * 3;
+            const dstIdx = (dstY * 8 + dstX) * 3;
+            unFlipped[dstIdx] = out[srcIdx];
+            unFlipped[dstIdx + 1] = out[srcIdx + 1];
+            unFlipped[dstIdx + 2] = out[srcIdx + 2];
+          }
+        }
+        out = unFlipped;
+      }
+
+      // 4. Inverse Rotation: (4 - rot) % 4
+      const invRot = (4 - rot) % 4;
+      let unRot = new Uint8Array(8 * 8 * 3);
+      for (let y = 0; y < 8; y++) {
+        for (let x = 0; x < 8; x++) {
+          let dstY = y, dstX = x;
+          if (invRot === 1) {
+            dstY = x; dstX = 7 - y;
+          } else if (invRot === 2) {
+            dstY = 7 - y; dstX = 7 - x;
+          } else if (invRot === 3) {
+            dstY = 7 - x; dstX = y;
+          }
+          const srcIdx = (y * 8 + x) * 3;
+          const dstIdx = (dstY * 8 + dstX) * 3;
+          unRot[dstIdx] = out[srcIdx];
+          unRot[dstIdx + 1] = out[srcIdx + 1];
+          unRot[dstIdx + 2] = out[srcIdx + 2];
+        }
+      }
+      return unRot;
+    }
+
+    // Main EtC Process Pipeline
+    function processEtc(imageData, width, height, seed, encrypt) {
+      const cropW = Math.floor(width / 16) * 16;
+      const cropH = Math.floor(height / 16) * 16;
+      const numBlocksH = cropH / 16;
+      const numBlocksW = cropW / 16;
+      const numBlocks = numBlocksH * numBlocksW;
+
+      const rng = createPRNG(seed);
+      const perm = getPermutation(rng, numBlocks);
+
+      // Shared keys for 4 subblocks (top-left, top-right, bottom-left, bottom-right)
+      const rotKeys = [Math.floor(rng() * 4), Math.floor(rng() * 4), Math.floor(rng() * 4), Math.floor(rng() * 4)];
+      const flipKeys = [Math.floor(rng() * 4), Math.floor(rng() * 4), Math.floor(rng() * 4), Math.floor(rng() * 4)];
+      const negKeys = [Math.floor(rng() * 2), Math.floor(rng() * 2), Math.floor(rng() * 2), Math.floor(rng() * 2)];
+      const rgbKeys = [Math.floor(rng() * 6), Math.floor(rng() * 6), Math.floor(rng() * 6), Math.floor(rng() * 6)];
+
+      // 1. Partition into 16x16 blocks
+      const blocks = [];
+      for (let by = 0; by < numBlocksH; by++) {
+        for (let bx = 0; bx < numBlocksW; bx++) {
+          const block = new Uint8Array(16 * 16 * 3);
+          for (let py = 0; py < 16; py++) {
+            for (let px = 0; px < 16; px++) {
+              const srcIdx = ((by * 16 + py) * width + (bx * 16 + px)) * 4;
+              const dstIdx = (py * 16 + px) * 3;
+              block[dstIdx] = imageData[srcIdx];
+              block[dstIdx + 1] = imageData[srcIdx + 1];
+              block[dstIdx + 2] = imageData[srcIdx + 2];
+            }
+          }
+          blocks.push(block);
+        }
+      }
+
+      let orderedBlocks;
+      if (encrypt) {
+        // Shuffle blocks
+        orderedBlocks = new Array(numBlocks);
+        for (let i = 0; i < numBlocks; i++) {
+          orderedBlocks[i] = blocks[perm[i]];
+        }
+
+        // Subblock transformations
+        for (let b = 0; b < numBlocks; b++) {
+          const block = orderedBlocks[b];
+          for (let s = 0; s < 4; s++) {
+            const subY = (s < 2) ? 0 : 8;
+            const subX = (s % 2 === 0) ? 0 : 8;
+            const sub = new Uint8Array(8 * 8 * 3);
+            for (let py = 0; py < 8; py++) {
+              for (let px = 0; px < 8; px++) {
+                const bIdx = ((subY + py) * 16 + (subX + px)) * 3;
+                const sIdx = (py * 8 + px) * 3;
+                sub[sIdx] = block[bIdx];
+                sub[sIdx + 1] = block[bIdx + 1];
+                sub[sIdx + 2] = block[bIdx + 2];
+              }
+            }
+            const trans = etcTransformSubblock(sub, rotKeys[s], flipKeys[s], negKeys[s], RGB_PERMS[rgbKeys[s]]);
+            for (let py = 0; py < 8; py++) {
+              for (let px = 0; px < 8; px++) {
+                const bIdx = ((subY + py) * 16 + (subX + px)) * 3;
+                const sIdx = (py * 8 + px) * 3;
+                block[bIdx] = trans[sIdx];
+                block[bIdx + 1] = trans[sIdx + 1];
+                block[bIdx + 2] = trans[sIdx + 2];
+              }
+            }
+          }
+        }
+      } else {
+        // Decrypt: Inverse subblock transforms first
+        for (let b = 0; b < numBlocks; b++) {
+          const block = blocks[b];
+          for (let s = 0; s < 4; s++) {
+            const subY = (s < 2) ? 0 : 8;
+            const subX = (s % 2 === 0) ? 0 : 8;
+            const sub = new Uint8Array(8 * 8 * 3);
+            for (let py = 0; py < 8; py++) {
+              for (let px = 0; px < 8; px++) {
+                const bIdx = ((subY + py) * 16 + (subX + px)) * 3;
+                const sIdx = (py * 8 + px) * 3;
+                sub[sIdx] = block[bIdx];
+                sub[sIdx + 1] = block[bIdx + 1];
+                sub[sIdx + 2] = block[bIdx + 2];
+              }
+            }
+            const unTrans = etcInverseTransformSubblock(sub, rotKeys[s], flipKeys[s], negKeys[s], rgbKeys[s]);
+            for (let py = 0; py < 8; py++) {
+              for (let px = 0; px < 8; px++) {
+                const bIdx = ((subY + py) * 16 + (subX + px)) * 3;
+                const sIdx = (py * 8 + px) * 3;
+                block[bIdx] = unTrans[sIdx];
+                block[bIdx + 1] = unTrans[sIdx + 1];
+                block[bIdx + 2] = unTrans[sIdx + 2];
+              }
+            }
+          }
+        }
+
+        // Un-shuffle blocks
+        orderedBlocks = new Array(numBlocks);
+        for (let i = 0; i < numBlocks; i++) {
+          orderedBlocks[perm[i]] = blocks[i];
+        }
+      }
+
+      // 4. Reconstruct Output ImageData
+      const outData = new Uint8ClampedArray(cropW * cropH * 4);
+      for (let by = 0; by < numBlocksH; by++) {
+        for (let bx = 0; bx < numBlocksW; bx++) {
+          const block = orderedBlocks[by * numBlocksW + bx];
+          for (let py = 0; py < 16; py++) {
+            for (let px = 0; px < 16; px++) {
+              const dstIdx = ((by * 16 + py) * cropW + (bx * 16 + px)) * 4;
+              const bIdx = (py * 16 + px) * 3;
+              outData[dstIdx] = block[bIdx];
+              outData[dstIdx + 1] = block[bIdx + 1];
+              outData[dstIdx + 2] = block[bIdx + 2];
+              outData[dstIdx + 3] = 255;
+            }
+          }
+        }
+      }
+      return { outData, width: cropW, height: cropH };
+    }
+
+    // --- Process Trigger ---
+    function runProcessing() {
+      if (!currentImage) return;
+      const seed = parseInt(seedInput.value, 10);
+      if (isNaN(seed)) {
+        alert('有効なシード値を入力してください。');
+        return;
+      }
+
+      // UI state
+      processBtn.disabled = true;
+      btnSpinner.classList.add('active');
+      btnText.textContent = isEncrypt ? '暗号化処理中...' : '復号処理中...';
+
+      // Use setTimeout to allow browser UI to render spinner
+      setTimeout(() => {
+        const startTime = performance.now();
+
+        // Draw input image to an offscreen canvas
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = currentImage.width;
+        tempCanvas.height = currentImage.height;
+        const tempCtx = tempCanvas.getContext('2d');
+        tempCtx.drawImage(currentImage, 0, 0);
+        const imgData = tempCtx.getImageData(0, 0, currentImage.width, currentImage.height);
+
+        // Run EtC
+        const result = processEtc(imgData.data, currentImage.width, currentImage.height, seed, isEncrypt);
+        const duration = Math.round(performance.now() - startTime);
+
+        // Render result onto output canvas
+        outputCanvas.width = result.width;
+        outputCanvas.height = result.height;
+        const outCtx = outputCanvas.getContext('2d');
+        const outImgData = new ImageData(result.outData, result.width, result.height);
+        outCtx.putImageData(outImgData, 0, 0);
+
+        // Export as JPEG (quality: 0.90)
+        outputCanvas.toBlob((blob) => {
+          currentOutputBlob = blob;
+          document.getElementById('size-original').textContent = formatBytes(originalFileSize);
+          document.getElementById('size-processed').textContent = formatBytes(blob.size);
+
+          // Update UI
+          outputSection.classList.add('active');
+          outputTitle.textContent = isEncrypt ? '暗号化が完了しました' : '復号が完了しました';
+          outputMeta.textContent = `解像度: ${result.width} × ${result.height} px • 処理時間: ${duration} ms • シード値: ${seed}`;
+
+          if (isEncrypt) {
+            sendToDecryptBtn.style.display = 'inline-block';
+          } else {
+            sendToDecryptBtn.style.display = 'none';
+          }
+
+          // Reset button state
+          processBtn.disabled = false;
+          btnSpinner.classList.remove('active');
+          btnText.textContent = isEncrypt ? '暗号化を実行' : '復号を実行';
+
+          // Scroll to output
+          outputSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 'image/jpeg', 0.90);
+      }, 30);
+    }
+
+    // --- Download Handler ---
+    function downloadResult() {
+      if (!currentOutputBlob) return;
+      const url = URL.createObjectURL(currentOutputBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      const prefix = isEncrypt ? "_encrypted" : "_decrypted";
+      a.download = `${originalFileName}${prefix}.jpg`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // --- Convenient Workflow: Send Result to Decrypt Tab ---
+    function sendResultToDecrypt() {
+      if (!currentOutputBlob) return;
+      const currentSeed = seedInput.value;
+      const blobUrl = URL.createObjectURL(currentOutputBlob);
+      const img = new Image();
+      img.onload = () => {
+        currentImage = img;
+        originalFileSize = currentOutputBlob.size;
+        originalFileName = `${originalFileName}_encrypted`;
+        fileNameDisplay.textContent = `${originalFileName}.jpg (暗号化JPEG)`;
+        fileDimsDisplay.textContent = `${img.width}x${img.height} (${formatBytes(originalFileSize)})`;
+        fileInfo.classList.add('active');
+
+        // Switch to decrypt tab and set seed
+        switchMode(false);
+        seedInput.value = currentSeed;
+        checkReady();
+
+        URL.revokeObjectURL(blobUrl);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+      img.src = blobUrl;
+    }
+  </script>
+</body>
+
+</html>

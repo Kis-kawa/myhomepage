@@ -27,8 +27,9 @@ List<WorkItem> getWorks(L10n l10n) => [
     title: l10n.workEtcTitle,
     imageAsset: "assets/images/works_thumbnail_03.webp",
     description: l10n.workEtcDesc,
-    techStack: const ["Python", "OpenCV", "NumPy", "FFmpeg"],
-    isComingSoon: true,
+    techStack: const ["JavaScript", "Canvas API", "Python"],
+    externalUrl: "https://kis-kawa.github.io/myhomepage/etc/",
+    isComingSoon: false,
   ),
 ];
 

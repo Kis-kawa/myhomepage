@@ -1,0 +1,10 @@
+[project]
+name = "etc"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=2.2.6",
+    "opencv-python>=5.0.0.93",
+]
