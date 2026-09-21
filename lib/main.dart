@@ -62,7 +62,8 @@ void main() {
         builder: (context, state) => ResponsiveLayout(
           pcLayout: PcHomeLayout.new,
           pcMinLayout: PcMinHomeLayout.new,
-          smartphoneLayout: SmartphoneNewsLayout.new,
+          // smartphoneLayout: SmartphoneNewsLayout.new,
+          smartphoneLayout: PcMinHomeLayout.new, // とりあえず小さいPC画面でスマホ表示
           deviceType: isMobile,
         ),
       ),
